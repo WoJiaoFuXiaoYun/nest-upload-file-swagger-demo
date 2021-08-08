@@ -1,16 +1,26 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined } from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger";
+import { ArrayNotEmpty, IsDefined, IsString } from "class-validator";
+import { ApiFile } from "src/common/decorator/file.decorator";
 
-export class FileDto {
-    @ApiProperty({ description: '文件' })
-    @IsDefined({ message: 'file不能为空' })
+class File {
     readonly fieldname: string;
-
-    @ApiProperty({ description: '文件' })
-    @IsDefined({ message: 'file不能为空' })
     readonly originalname: string;
     readonly encoding: string;
     readonly mimetype: string;
     readonly buffer: Buffer[];
     readonly size: number;
+    readonly suffix?: string;
 }
+
+export class FileDto {
+    @ApiFile()
+    @IsDefined()
+    readonly file: File;
+}
+
+export class FilesDto {
+    @ApiFile({ isArray: true })
+    readonly files: File[];
+}
+
+
