@@ -32,14 +32,13 @@ export class FileController {
         })
 
         return await Promise.all(arr).catch(err => {
-            console.log('err::', err);
             throw new HttpException({ errcode: 0, errmsg: `上传文件失败: ${err.statusCode} ${err.data.error}` }, HttpStatus.BAD_REQUEST);
         })
     }
 
 
     uploadfile(suffix, buffer) {
-        return new Promise((resolve) => resolve)
+        return new Promise((resolve) => setTimeout(() => resolve('ok'), 1000))
     }
 }
 
